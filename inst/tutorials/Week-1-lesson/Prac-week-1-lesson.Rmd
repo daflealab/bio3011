@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## Installing packages
 
-R is an open-source programming language, meaning that users can contribute packages that make our lives easier, and we can use them for free. In R, the fundamental unit of shareable code is the package. A package bundles together code, data, documentation, and tests, and is easy to share with others. As of January 2015, there were over 6,000 packages available on the Comprehensive R Archive Network, or CRAN, the public clearing house for R packages. This huge variety of packages is one of the reasons that R is so successful: the chances are that someone has already solved a problem that you’re working on, and you can benefit from their work by downloading their package.   
+R is an open-source programming language, meaning that users can contribute packages that make our lives easier, and we can use them for free. In R, the fundamental unit of shareable code is the package. A package bundles together code, data, documentation, and tests, and is easy to share with others. As of January 2015, there were over 6,000 packages available on the Comprehensive R Archive Network, or CRAN, the public clearing house for R packages. This huge variety of packages is one of the reasons that R is so successful: the chances are that someone has already solved a problem that you’re working on, and you can benefit from their work by downloading their package.  
   
 You install them from CRAN with `install.packages("x")`.  
 You use them in R with `library(x)`.  
