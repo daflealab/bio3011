@@ -1,0 +1,428 @@
+---
+title: "Intro R lesson"
+output: 
+  learnr::tutorial:
+    progressive: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+#Run code here that can be accessed by all other chunks
+library("learnr") 
+library("tidyverse") 
+
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## R basics
+
+R is rapidly becoming the leading language in data science and statistics. Google, Facebook, Microsoft Xbox, Uber, ANZ, Twitter, New York Times, IBM and AirBnB all use R and RStudio. Today, R is the tool of choice for data science professionals in every industry and field. At it's most basic R is a calculator that we use to turn data into knowledge. R's binary and logical operators will look very familiar to programmers.
+
+**Arithmetic Operators include:**
+
+* `+`	addition  
+* `-`	subtraction  
+* `*`	multiplication  
+* `/`	division  
+* `^` or `**`	exponentiation  
+  
+**Logical Operators include:**
+
+* `>`	greater than  
+* `>=`	greater than or equal to  
+* `==`	exactly equal to  
+* `!=`	not equal to  
+
+For all arithmetic operators, the classic rules for the order of operations apply. Calculations are carried out in the following order: **1)** Exponentiation; **2)** Multiplication and division in the order in which the operators are presented; and, **3)** Addition and subtraction in the order in which the operators are presented. You can change the order of the operations by using parentheses `( )`, e.g. `(1 + 2) * 3`, with everything that is between parentheses carried out first.
+  
+### Exercise in interactive maths
+
+*Run the following code to use R to calculate the result of `1 + 2 + 3`. Then try `(1 + 2) / 3` Then use the same coding chunk and the overview of the arithmetic operators above to answer the following question.*
+
+```{r calc, exercise=TRUE}
+1 + 2 + 3
+```
+
+```{r quiz-calc}
+quiz(caption = "Quiz: Use the code chunk above to help answer this question.",
+  question("What is 12 to the power of 2, times 3",
+    answer("48"),
+    answer("72"),
+    answer("96"),
+    answer("432", correct = TRUE)
+  ))
+```
+
+## Installing packages
+
+R is an open-source programming language, meaning that users can contribute packages that make our lives easier, and we can use them for free. In R, the fundamental unit of share-able code is the package. A package bundles together code, data, documentation, and tests, and is easy to share with others. As of January 2015, there were over 6,000 packages available on the Comprehensive R Archive Network, or CRAN, the public clearing house for R packages. This huge variety of packages is one of the reasons that R is so successful: the chances are that someone has already solved a problem that you’re working on, and you can benefit from their work by downloading their package.  
+  
+You install them from CRAN with `install.packages("x")`.  
+You use them in R with `library("x")`.  
+You get help on them with `package?x` and `help(package = "x")`.  
+
+For this lab, and many others in the future, we will use the following R packages:
+
+* `dplyr`: for data wrangling  
+* `ggplot2`: for data visualisation  
+
+> The easiest way to load these packages, any many others that become increasingly useful as you use R more, is to load the `tidyverse` package at the start of a script with `library("tidyverse")`. 
+
+### Exercise in finding help
+
+*Use the code chunk below to get help on the package `readr`.*
+
+```{r help, exercise=TRUE}
+
+```
+
+```{r help-hint-1}
+package?...
+```
+
+```{r help-hint-2}
+package?readr
+```
+
+```{r quiz2}
+quiz(caption = "Quiz: Use the code chunk above to help answer this question.",
+  question("What is the purpose of the `readr` package?",
+    answer("To provide a complete and consistent functional programming toolkit for R"),
+    answer("To provide a fast and friendly way to read tabular data", correct = TRUE),
+    answer("To provide a flexible grammar of data manipulation"),
+    answer("To provide a system for 'declaratively' creating graphic")
+  )
+)
+```
+
+### Exercise in finding help again
+
+*A code chunk to use and some questions to verify that you understand the purposes of various base and recommended R packages.*
+
+```{r quizz1, exercise=TRUE}
+
+```
+
+```{r quiz3}
+quiz(caption = "Quiz: Use the code chunk above to help answer this question.",
+  question("Which of the R packages listed below are used to create plots?",
+    answer("lattice", correct = TRUE),
+    answer("tools"),
+    answer("stats"),
+    answer("ggplot2", correct = TRUE)
+  )
+)
+```
+
+## Data structure types
+
+In R, you work with data structures that store your data, and functions that process it. A data structure is the interface to data organized in computer memory. As the R Language Definition states, R does not provide direct access to the computer’s memory but rather provides a number of specialized data structures that you can refer to as "objects". Data structures are each designed to optimize some aspect of storage, access, or processing.   
+
+R’s base data structures can be organised by their dimensionality (1d, 2d, or *n*d) and whether they’re homogeneous (all contents must be of the same type) or heterogeneous (the contents can be of different types). This gives rise to the five data types most often used in data analysis:  
+
+Dimensions | Homogeneous   | Heterogeneous
+:---------- | :------------- | :-------------
+1d         | Atomic vector | List
+2d         | Matrix        | Data frame
+*n*d       | Array         | 
+
+### Data structures to store results
+
+For wrangling and analysing data, we most often need R to store tabular data (a rectangular arrangement of data in rows and columns) as data frames or tibbles. Both types are a rectangular collection of variables (in the columns) and observations (in the rows). Tibbles are data frames, but they tweak some older behaviours to make life a little easier. We use both to store the data we import into R, typically from either a `csv` file or from a `xlsx` file. 
+
+* List: `c(1, TRUE, "monday")`
+* Atomic Vector: `c(1, 12, 100)` or `c("male", "female")` or `c(TRUE, FALSE, TRUE)`
+
+> `c(...)` is a generic function which combines its arguments. It stands for combine.
+
+### An example of a tibble   
+  
+*An example is the `mpg` data frame found in the `ggplot2` package. The `mpg` data frame contains observations collected by the US Environmental Protection Agency on 38 models of cars. To see the `mpg` data frame, type `mpg` in the code chunk below and then click "Run code."*
+
+```{r mpg, exercise = TRUE}
+
+```
+
+<div id="mpg-hint">
+**Hint:** Type `mpg` and then click the blue button.
+</div>
+
+You might have noticed that R displays a row of three (or four) letter abbreviations under the column names in `mpg`. These abbreviations describe the type of variable that is stored in each column of `mpg`:
+
+* `int` stands for integers. Think whole numbers.
+* `dbl` stands for doubles, or real numbers. Think numbers with decimal points.
+* `chr` stands for character vectors, or strings.
+  
+There are three other common types of variables that aren't used in this data set but are used in other data sets:
+
+* `lgl` stands for logical, vectors that contain only `TRUE` or `FALSE`.
+* `fctr` stands for factors, which R uses to represent categorical variables with fixed possible values.
+* `date` stands for dates.
+* `dttm` stands for date-times (a date + a time).
+  
+```{r quiz-mpg}
+quiz(caption = "Use the code chunk above to help answer these questions.",
+     question("Which types of variables does `mpg` contain? Check all that apply.",
+              type = "multiple",
+              incorrect = "Look a little closer at `mpg`.",
+              answer("integers", correct = TRUE),
+              answer("doubles", correct = TRUE),
+              answer("factors"),
+              answer("characters", correct = TRUE),
+              correct = "Great Job!"
+     ),
+     question("How many rows are in the data frame named `mpg`?",
+              answer("2"), 
+              answer("10"),
+              answer("24"),
+              answer("234", correct = TRUE),
+              incorrect = "Hint: R numbers the rows of a data frame when it displays the contents of a data frame. As a result, you can spot the number of rows in `mpg` by examining `mpg` in the code block above.", 
+              allow_retry = TRUE
+     )
+)
+```
+
+### Accessing parts of a tibble or dataframe
+
+You can access individual components of a tibble in a number of  ways.
+
+1. Access columns of a data frames by using the `$` operator on the object name, followed by the column name, `mpg$year`  
+2. Access rows, columns, or cells, using bracket notation, what I think of as rows-comma-columns. Basically, you take the name of your data frame and follow it by [rows, columns]. If you don't enter  value, then all rows or columns are selected, `mpg[,4]` is equivalent to above.
+
+*Practice accessing parts of `mpg` using both the `$` operator and the brackets. Some suggestions to try `mpg[2:4, ]`, `mpg[, 1:4]`, `mpg[2,4]`*
+
+> RStudio uses code completion to make your life easier. Type in `mpg$` and RStudio should offer up a list of all variables in that tibble. Code completion also works when using functions. We will come back to this later.
+
+```{r access, exercise = TRUE}
+
+```
+
+```{r quiz-access}
+quiz(caption = "Quiz: Use the code chunk above to help answer this question.",
+  question("What is the value of the cell located in the eighth column and the eleventh row",
+    answer("9"),
+    answer("p"),
+    answer("19", correct = TRUE),
+    answer("NA")
+  )
+)
+```
+
+### Some useful options when working with tibbles etc
+
+*When working with large tibble/data frames we often want to check the general structure or contents of an object without viewing the whole object. Some useful functions are `glimpse(your_tibble)`, `summary(your_tibble)`, `head(your_tibble)`, and `tail(your_tibble)`. Try each of the out with the `mpg` tibble and practice searching for help for each function using `?function_name`*
+
+> Make sure you understand what each function is doing before moving on. 
+
+```{r str, exercise=TRUE}
+
+```
+
+```{r str-quiz}
+quiz(caption = "Quiz: Use the code chunk above to help answer this question.",
+     question("What is the maximum value of the year variable",
+              answer("1999"),
+              answer("2004"),
+              answer("2008", correct = TRUE),
+              answer("2012")
+     )
+)
+```
+
+## Programming building blocks
+
+R has a mind-blowing collection of built-in functions. If you need to do something – like fit a statistical model, simulation or data wrangling task, chances are someone has a package with the exact function that performs your task. Or it is relatively easy to build your own function that does exactly what you need.  
+
+Functions in R are accessed like so:
+
+`functionName(arg1 = val1, arg2 = val2, and so on)`
+
+*Use your new found knowledge of R to find help on two basic, but commonly used, functions `mean`,  `sd` and `lm`. What do they do?*
+
+```{r blocks1, exercise=TRUE, exercise.eval=TRUE}
+
+```
+
+```{r blocks1-hint-1}
+?function_name
+```
+
+```{r blocks1-hint-2}
+?sd
+```
+
+### Practice time
+
+*Edit the following code below to find the mean of the variable `hwy` in the `mpg` dataset. Notice that the `mean()` function has another argument `na.rm = TRUE`. Always include this when calculating a mean or sd, otherwise R defaults to including missing cells in the calculation of the total number of replicates.*  
+
+```{r blocks, exercise=TRUE, exercise.eval=TRUE}
+mean(mpg$cyl, na.rm = TRUE)
+
+```
+
+```{r blocks-quiz}
+quiz(caption = "Quiz: Use the code chunk above to help answer this question.",
+     question("What is the mean value of the hwy variable",
+              answer("16.8"),
+              answer("3.5"),
+              answer("23.4", correct = TRUE),
+              answer("5.9")
+     )
+)
+```
+  
+### Working with variables
+
+R is an object-orientated programming language where we can save a variety of variables, functions or the results of functions (such as the output of an analysis) as new objects. Creating reusable objects is the foundation of R programming. All R statements where you create objects (assignments) have this form:
+
+`object_name <- value`  
+  
+> You will make lots of assignments and the operator `<-` is a pain to type. Don’t be lazy and use `=`, although it would work, because it will just sow confusion later. Instead, utilize RStudio’s keyboard shortcut: `Alt/Option` + `-` (the minus sign).
+
+*Here we can create a new variable by assigning a value to it using `<-`. But notice that when you run the following code no value appears on screen*
+
+```{r prepare-assign}
+weight_kg <- 55
+```
+
+```{r assign1, exercise=TRUE}
+weight_kg <- 55
+```
+
+*To return the value of `weight_kg` to the screen we need to type the name of the variable and run the code. In general, R will print to the screen or any object returned by a function or operation – unless we assign it to a variable.*
+
+```{r assign2, exercise=TRUE, exercise.setup = "prepare-assign"}
+weight_kg
+```
+
+*We can do arithmetic with the variable. Also notice that we can add comments to our code using the `#` character. It is useful to document our code in this way so that others (and us the next time we read it) have an easier time following what the code is doing.*
+
+```{r assign3, exercise=TRUE, exercise.setup = "prepare-assign"}
+#Weight in pounds
+weight_kg * 2.2
+```
+
+*We can also change a variable’s value by assigning it a new value at any time:*
+
+```{r assign4, exercise=TRUE}
+weight_kg <- 57.5
+# weight in kilograms is now
+weight_kg
+```
+
+*Assigning a new value to one variable does not change the values of other variables. For example, let’s store a subject’s weight in pounds in a new variable:* 
+
+```{r prepare-assign2}
+weight_kg <- 57.5
+```
+
+```{r assign5, exercise=TRUE, exercise.setup = "prepare-assign2"}
+weight_lb <- 2.2 * weight_kg
+weight_lb
+```
+
+```{r prepare-assign3}
+weight_lb <- 2.2 * 57.5
+```
+
+*But now lets change weight_kg to 100. Notice nothing happens to `weight_lb`. Since `weight_lb` doesn’t “remember” where its value came from, it isn’t automatically updated when weight_kg changes. This is different to how spreadsheets work. To update `weight_lb` with the new value we would need to rerun `weight_lb <- 2.2 * weight_kg` again*.
+
+```{r assign6, exercise=TRUE, exercise.setup = "prepare-assign3"}
+weight_kg <- 100
+weight_lb
+```
+
+## Naming variables
+
+Object names cannot start with a digit and cannot contain certain other characters such as a comma or a space. You will be wise to adopt a convention for demarcating words in names. It is best practice to not use periods as part of naming objects. Other programming languages, such a Python and Pearl, reserve the period as a way of accessing sub-objects of a particular class or function (i.e. BIO3011.students, BIO3011.lecturers). Avoiding the use of periods in naming things in R makes it easier to swap to another language at a later date. 
+
+* `i_use_snake_case` 
+* `other.people.use.periods`
+* `evenOthersUseCamelCase` 
+
+>  Variables should be lowercase. Use an underscore (_) to separate words within a name. I name functions using lowerCamelCase. Generally, variable names should be nouns and function names should be verbs. Strive for names that are concise and meaningful (this is not easy!).
+
+**Good names:** `day_one` or `day_1`  
+  
+**Bad names:** `first_day_of_the_month` or `djm1`  
+  
+### An exercise in naming variabbles
+
+*Use the code block below and the `mpg` dataset to estimate the mean value of the column `cty` using the functions outlined above and save that estimate as a new variable. Then view the new variable.* 
+
+```{r name, exercise=TRUE}
+
+```
+
+```{r name-hint-1}
+cty_mean <- ...
+cty_mean
+```
+
+```{r name-hint-2}
+cty_mean <- mean(mpg$cty, na.rm = TRUE)
+cty_mean
+```
+
+```{r name-quiz}
+quiz(caption = "Quiz: Use the code chunk above to help answer this question.",
+     question("What is the mean value of the cty variable",
+              answer("16.8", correct = TRUE),
+              answer("3.5"),
+              answer("23.4"),
+              answer("5.9")
+     )
+)
+```
+  
+### A reminder about cases
+
+It is really important to remember that R is case sensitive: `object_name` does not equal `object_Name`. This is a common error that arises, particularly with the first letter of variable names or tibbles. I recommend just using all lower cases for everything other than functions.
+
+*Edit the code below to fix the returned error*
+
+```{r assign7, exercise=TRUE}
+r_cty_hwy <- cor(mpg$cty, Mpg$hwy)
+
+r_cty_hwY
+```
+
+<div id="assign-hint">
+**hint:** Check for incorrect capitalisation.
+</div>
+
+### Other style tips 
+
+One of the final aspects of coding in R is to remember to make your code readable. Spaces make a huge difference to readability. Place spaces around all operators (`=`, `+`, `-`, `<-`, `==`, etc.). The same rule applies when using `=` in function calls. Always put a space after a comma, and never before (just like in regular English).
+
+**Good:** `average <- mean(feet / 12 + inches, na.rm = TRUE)`  
+  
+**Bad:** `average<-mean(feet/12+inches,na.rm=TRUE)`  
+  
+There’s a small exception to this rule: `:`, `::` and `:::` and don’t need spaces around them.  
+  
+**Good:** `x <- 1:10` or `base::get`  
+  
+**Bad:** `x <- 1 : 10` or `base :: get`  
+  
+Finally, text in quotes, known as strings, do not need spaces, as everything with the quotes will be interpreted literally (so the space matters).
+
+**Good:** `"female"` or `"low_diet"`  
+  
+**Bad:** `" female"` or `" low_diet "`  
+  
+*Using the style guide above, edit the following code to match the suggested formatting rules. The code is the first time you may have seen a statistical function - a linear model. You could also add another line and run the summary function on the results of the linear model via `summary(lm_mpg)` or conduct an analysis of varaince via `anova(lm_mpg)`. Try them out.*
+
+```{r style, exercise=TRUE}
+lm_mpg<-lm(hwy~displ,data=mpg,subset=manufacturer=="audi")
+lm_mpg
+```
+
+<div id="style-hint">
+lm_mpg <- lm(hwy ~ displ, data = mpg, subset = manufacturer == "audi")  
+lm_mpg
+</div>
+
+### Break time
+
+> Well done on making it this far. If you are uncertain about any aspect of what we have covered, please ask a member of your teaching team. The next sections of this practical will be some practice data sets.
