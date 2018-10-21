@@ -59,7 +59,7 @@ ggplot(baby_edit, aes(x = year, y = prop, colour = name)) +
   
 To see what I mean, consider the size and complexity of the `babynames` data. There are `r length(unique(babynames$name))` unique baby names spanning the years 1880 to 2015. You will be working with a data set that is 1,858,689 rows long. Isolating the data that you need is crucial.
 
-```{r str, exercise=TRUE, exercise.eval=TRUE}
+```{r str, exercise=TRUE, exercise.eval=FALSE}
 glimpse(babynames)
 
 ```
