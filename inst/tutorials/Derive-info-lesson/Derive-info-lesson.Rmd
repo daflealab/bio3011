@@ -55,7 +55,7 @@ glimpse(babynames)
 
 Every data frame that you meet implies more information than it displays. For example, `babynames` does not display the total number of children who had your name, but `babynames` certainly implies what that number is. To discover the number, you only need to do a calculation:
 
-```{r echo=TRUE}
+```{r echo=TRUE, warning=FALSE}
 babynames %>% 
   filter(name == "Garrett", sex == "M") %>% 
   summarise(total = sum(n))

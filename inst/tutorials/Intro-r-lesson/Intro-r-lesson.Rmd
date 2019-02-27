@@ -126,14 +126,16 @@ Dimensions | Homogeneous   | Heterogeneous
 2d         | Matrix        | Data frame
 *n*d       | Array         | 
 
-### Data structures to store results
-
-For wrangling and analysing data, we most often need R to store tabular data (a rectangular arrangement of data in rows and columns) as data frames or tibbles. Both types are a rectangular collection of variables (in the columns) and observations (in the rows). Tibbles are data frames, but they tweak some older behaviours to make life a little easier. We use both to store the data we import into R, typically from either a `csv` file or from a `xlsx` file. 
+### Some examples
 
 * List: `c(1, TRUE, "monday")`
 * Atomic Vector: `c(1, 12, 100)` or `c("male", "female")` or `c(TRUE, FALSE, TRUE)`
 
 > `c(...)` is a generic function which combines its arguments. It stands for combine.
+
+## Data structures to store results
+
+For wrangling and analysing data, we most often need R to store tabular data (a rectangular arrangement of data in rows and columns) as data frames or tibbles. Both types are a rectangular collection of variables (in the columns) and observations (in the rows). Tibbles are data frames, but they tweak some older behaviours to make life a little easier. We use both to store the data we import into R, typically from either a `csv` file or from a `xlsx` file. 
 
 ### An example of a tibble   
   
@@ -295,7 +297,9 @@ weight_kg <- 55
 weight_kg
 ```
 
-*We can do arithmetic with the variable. Also notice that we can add comments to our code using the `#` character. It is useful to document our code in this way so that others (and us the next time we read it) have an easier time following what the code is doing.*
+### Math with variables
+
+*We can do calculations with the variable. Also notice that we can add comments to our code using the `#` character. It is useful to document our code in this way so that others (and us the next time we read it) have an easier time following what the code is doing.*
 
 ```{r assign3, exercise=TRUE, exercise.setup = "prepare-assign"}
 #Weight in pounds
@@ -309,6 +313,8 @@ weight_kg <- 57.5
 # weight in kilograms is now
 weight_kg
 ```
+
+### Assigning new values to old variables
 
 *Assigning a new value to one variable does not change the values of other variables. For example, let’s store a subject’s weight in pounds in a new variable:* 
 
